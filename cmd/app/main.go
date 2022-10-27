@@ -5,6 +5,13 @@ import (
 	"SiteAPI/internal/db"
 )
 
+// @title           Swagger Example API
+// @version         1.8.7
+// @description     This is a sample server celler server.
+
+// @host      localhost:8080
+// @BasePath  /
+
 func main() {
 	db.InitialMigration()
 	controllers.HandleFuncs()

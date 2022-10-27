@@ -5,23 +5,18 @@ import (
 	"SiteAPI/pkg/structs"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"net/http"
 )
 
-//Главная страница
-func Index(w http.ResponseWriter, r *http.Request) {
-	tmp, err := template.ParseFiles("pkg/templates/index.html",
-		"pkg/templates/header.html", "pkg/templates/footer.html")
-	if err != nil {
-		fmt.Fprintf(w, err.Error())
-	}
+// Index Главная страница
+func Index(w http.ResponseWriter, _ *http.Request) {
 
 	//Выборка данных
 	dataBase := db.DbConnect()
 	var posts []structs.Article
 	dataBase.Find(&posts)
-	dataBase.Clauses()
-	tmp.ExecuteTemplate(w, "index", posts)
-	json.NewEncoder(w).Encode(posts)
+	err := json.NewEncoder(w).Encode(posts)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
